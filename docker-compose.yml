@@ -1,0 +1,37 @@
+version: '3.7'
+services:
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environments:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ALLOW_EMPTY_PASSWORD: ${MYSQL_EMPTY_PASSWORD}
+    networks:
+      - myapp
+    ports:
+      - ${MYSQL_EXT_PORT}:3306
+    volumes:
+      - mysql-data:/var/lib/mysql
+  app:
+    build: 
+      context: apps/
+      dockerfile: Dockerfile
+    networks:
+      - myapp
+    ports:
+      - ${APP_EXT_PORT}:3000
+    depends_on:
+      - mysql
+    links: 
+      - mysql
+
+networks:
+  myapp:
+    name: myapp
+    driver:  bridge
+
+volumes:
+  mysql-data:
