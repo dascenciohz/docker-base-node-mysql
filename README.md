@@ -16,6 +16,7 @@ Docker base repository for Node projects with connection to MySQL.
     * Alternatively you can create an .env file in the same path of the docker-compose.yml with the variables named above.
 
 3.- Build and start up the service stack.
+
     docker-compose -f "docker-compose.yml" up -d --build
 
 4.- Tear down service stack.
@@ -33,4 +34,5 @@ NOTE: If the app return error connection to MySQL, restart container to fix prob
 1.- Add your App Node Code into "apps" folder.
 
 2.- Build and start up your app.
+
     docker-compose -f "docker-compose.yml" up -d --build myapp
